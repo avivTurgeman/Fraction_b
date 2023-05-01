@@ -93,11 +93,6 @@ namespace ariel{
             throw overflow_error("Fraction subtraction overflowed");
         }
         Fraction negative_other = other * (-1.0);
-        if(other.getNumerator() == std::numeric_limits<int>::min()){
-            // std::cout << (negative_other.getNumerator() == std::numeric_limits<int>::min()) << std::endl;
-            // std::cout <<(negative_other.getDenominator()) << std::endl;
-            // std::cout << ((std::numeric_limits<int>::min() + 1) * (-1) == std::numeric_limits<int>::max()) << std::endl;
-        }
         Fraction rv = *this + negative_other;
         return rv;
     }
