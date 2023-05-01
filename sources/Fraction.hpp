@@ -15,83 +15,55 @@ namespace ariel{
             int denominator_;
             void negative_handler();
             void reduce();
-            static Fraction floatToFraction(const float);
+            static Fraction floatToFraction(float);
             static float fractionToFloat(Fraction frac);
             
 
         public:
             //Constructors
-            Fraction():
-            numerator_(0), denominator_(1){}
-
-            Fraction(float num){
-                *this = floatToFraction(num);
-            }
-
-            Fraction(int numerator, int denominator):
-            numerator_(numerator), denominator_(denominator){
-                if(denominator_ == 0){
-                    throw std::invalid_argument("denominator cannot be 0");
-                }
-                reduce();
-                negative_handler();
-            }
+            Fraction();
             
-            //copy Constructor
-            Fraction(const Fraction& other):
-            numerator_(other.numerator_), denominator_(other.denominator_){}
+            Fraction(float);
 
-            //destructor
-            ~Fraction();
+            Fraction(int, int);
 
             //Arithmetic Operators
             Fraction operator+(const Fraction&) const;
-            friend Fraction operator+(const float, const Fraction&);
-            friend Fraction operator+(const Fraction&, const float);
+            friend Fraction operator+(float, const Fraction&);
+            friend Fraction operator+(const Fraction&, float);
  
             Fraction operator-(const Fraction&) const;
-            friend Fraction operator-(const float, const Fraction&);
-            friend Fraction operator-(const Fraction&, const float);
+            friend Fraction operator-(float, const Fraction&);
+            friend Fraction operator-(const Fraction&, float);
  
             Fraction operator*(const Fraction&) const;
-            friend Fraction operator*(const float, const Fraction&);
-            friend Fraction operator*(const Fraction&, const float);
+            friend Fraction operator*(float, const Fraction&);
+            friend Fraction operator*(const Fraction&, float);
             
             Fraction operator/(const Fraction&) const;
-            friend Fraction operator/(const float, const Fraction&);
-            friend Fraction operator/(const Fraction&, const float);
+            friend Fraction operator/(float, const Fraction&);
+            friend Fraction operator/(const Fraction&, float);
 
             //Comparison Operators
             bool operator==(const Fraction&) const;
-            friend bool operator==(const Fraction&, const float);
-            friend bool operator==(const float, const Fraction&);
+            friend bool operator==(const Fraction&, float);
+            friend bool operator==(float, const Fraction&);
             
             bool operator>(const Fraction&) const;
-            friend bool operator>(const Fraction&, const float);
-            friend bool operator>(const float, const Fraction&);
+            friend bool operator>(const Fraction&, float);
+            friend bool operator>(float, const Fraction&);
 
             bool operator<(const Fraction&) const;
-            friend bool operator<(const Fraction&, const float);
-            friend bool operator<(const float, const Fraction&);
+            friend bool operator<(const Fraction&, float);
+            friend bool operator<(float, const Fraction&);
 
             bool operator>=(const Fraction&) const;
-            friend bool operator>=(const Fraction&, const float);
-            friend bool operator>=(const float, const Fraction&);
+            friend bool operator>=(const Fraction&, float);
+            friend bool operator>=(float, const Fraction&);
             
             bool operator<=(const Fraction&) const;
-            friend bool operator<=(const Fraction&, const float);
-            friend bool operator<=(const float, const Fraction&);
-
-            //Assignment Operator
-            Fraction& operator=(const Fraction& other){
-                if(this != &other){
-                    this->numerator_ = other.numerator_;
-                    this->denominator_ = other.denominator_;
-                }
-                negative_handler();
-                reduce();
-                return *this;
-            }
+            friend bool operator<=(const Fraction&, float);
+            friend bool operator<=(float, const Fraction&);
 
             //prefix
             Fraction& operator++(){

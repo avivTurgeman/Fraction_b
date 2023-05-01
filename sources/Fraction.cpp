@@ -4,7 +4,23 @@ using namespace std;
 
 namespace ariel{
 
-    Fraction::~Fraction(){}
+    Fraction::Fraction():
+    numerator_(0), denominator_(1){}
+
+    Fraction::Fraction(float num){
+        Fraction other = floatToFraction(num);
+        numerator_ = other.getNumerator();
+        denominator_ = other.getDenominator();
+    }
+
+    Fraction::Fraction(int numerator, int denominator):
+    numerator_(numerator), denominator_(denominator){
+        if(denominator_ == 0){
+            throw std::invalid_argument("denominator cannot be 0");
+        }
+        reduce();
+        negative_handler();
+    }
 
     void Fraction::negative_handler(){
         if(numerator_ < 0 && denominator_ < 0){
@@ -23,7 +39,7 @@ namespace ariel{
         denominator_ /= gcd;
     }
 
-    Fraction Fraction::floatToFraction(const float  num){
+    Fraction Fraction::floatToFraction(float  num){
         int integer_part = (int) num;
         float dummy;
         float frac = modf(num, &dummy);
@@ -59,13 +75,13 @@ namespace ariel{
         return rv;
     }
 
-    Fraction operator+(const float  num, const Fraction& frac){
+    Fraction operator+(float  num, const Fraction& frac){
         Fraction numF = Fraction::floatToFraction(num) ;
         Fraction rv = numF + frac;
         return rv;
     }
 
-    Fraction operator+(const Fraction& frac, const float  num){
+    Fraction operator+(const Fraction& frac, float  num){
         Fraction numF = Fraction::floatToFraction(num);
         Fraction rv = numF + frac;
         return rv;
@@ -86,13 +102,13 @@ namespace ariel{
         return rv;
     }
 
-    Fraction operator-(const float num, const Fraction& frac){
+    Fraction operator-(float num, const Fraction& frac){
         Fraction numF = Fraction::floatToFraction(num);
         Fraction rv = numF - frac;
         return rv;
     }
 
-    Fraction operator-(const Fraction& frac, const float num){
+    Fraction operator-(const Fraction& frac, float num){
         Fraction numF = Fraction::floatToFraction(num);
         Fraction rv = frac - numF;
         return rv;
@@ -111,13 +127,13 @@ namespace ariel{
         return rv;
     }
 
-    Fraction operator*(const float num, const Fraction& frac){
+    Fraction operator*(float num, const Fraction& frac){
         Fraction numF = Fraction::floatToFraction(num) ;
         Fraction rv = numF * frac;
         return rv;
     }
 
-    Fraction operator*(const Fraction& frac, const float num){
+    Fraction operator*(const Fraction& frac, float num){
         Fraction numF = Fraction::floatToFraction(num) ;
         Fraction rv = numF * frac;
         return rv;
@@ -132,7 +148,7 @@ namespace ariel{
         return rv;
     }
 
-    Fraction operator/(const float num, const Fraction& frac){
+    Fraction operator/(float num, const Fraction& frac){
         if(frac.getNumerator() == 0){
             throw std::runtime_error("cannot divide by zero!\n");
         }
@@ -142,7 +158,7 @@ namespace ariel{
         return rv;
     }
 
-    Fraction operator/(const Fraction& frac, const float num){
+    Fraction operator/(const Fraction& frac, float num){
         if(num == 0){
             throw std::runtime_error("cannot divide by zero!\n");
         }
@@ -162,12 +178,12 @@ namespace ariel{
         return false;
     }
 
-    bool operator==(const Fraction& frac, const float num){
+    bool operator==(const Fraction& frac, float num){
         Fraction numF = Fraction::floatToFraction(num);
         return (frac == numF);
     }
 
-    bool operator==(const float num, const Fraction& frac){
+    bool operator==(float num, const Fraction& frac){
         Fraction numF = Fraction::floatToFraction(num);
         return (frac == numF);
     }
@@ -182,12 +198,12 @@ namespace ariel{
         return false;
     }
 
-    bool operator>(const Fraction& frac, const float num){
+    bool operator>(const Fraction& frac, float num){
         Fraction numF = Fraction::floatToFraction(num);
         return (frac > numF);
     }
 
-    bool operator>(const float num, const Fraction& frac){
+    bool operator>(float num, const Fraction& frac){
         Fraction numF = Fraction::floatToFraction(num);
         return (numF > frac);
     }
@@ -202,12 +218,12 @@ namespace ariel{
         return false;
     }
 
-    bool operator<(const Fraction& frac, const float num){
+    bool operator<(const Fraction& frac, float num){
         Fraction numF = Fraction::floatToFraction(num);
         return (frac < numF);
     }
 
-    bool operator<(const float num, const Fraction& frac){
+    bool operator<(float num, const Fraction& frac){
         Fraction numF = Fraction::floatToFraction(num);
         return (numF < frac);
     }
@@ -222,12 +238,12 @@ namespace ariel{
         return false;
     }
 
-    bool operator>=(const Fraction& frac, const float num){
+    bool operator>=(const Fraction& frac, float num){
         Fraction numF = Fraction::floatToFraction(num);
         return (frac >= numF);
     }
 
-    bool operator>=(const float num, const Fraction& frac){
+    bool operator>=(float num, const Fraction& frac){
         Fraction numF = Fraction::floatToFraction(num);
         return (numF >= frac);
     }
@@ -242,20 +258,17 @@ namespace ariel{
         return false;
     }
     
-    bool operator<=(const Fraction& frac, const float num){
+    bool operator<=(const Fraction& frac, float num){
         Fraction numF = Fraction::floatToFraction(num);
         return (frac <= numF);
     }
 
-    bool operator<=(const float num, const Fraction& frac){
+    bool operator<=(float num, const Fraction& frac){
         Fraction numF = Fraction::floatToFraction(num);
         return (numF <= frac);
     }
 
     ostream& operator<<(ostream& output, const Fraction& frac) {
-        // if((frac.getNumerator() == 7) && (frac.getDenominator() == -9)){
-        //     std::cout << frac.getNumerator() << '/' << frac.getDenominator() << std::endl;
-        // }
         return output << frac.getNumerator() << '/' << frac.getDenominator();
     }
 
