@@ -16,7 +16,7 @@ namespace ariel{
             void negative_handler();
             void reduce();
             static Fraction floatToFraction(float);
-            static float fractionToFloat(Fraction frac);
+            static float fractionToFloat(const Fraction& frac);
             
 
         public:

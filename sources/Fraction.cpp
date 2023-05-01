@@ -50,7 +50,7 @@ namespace ariel{
         return rv;    
     }
 
-    float Fraction::fractionToFloat(Fraction frac){
+    float Fraction::fractionToFloat(const Fraction& frac){
         float numerator = static_cast<float>(frac.getNumerator());
         float denominator = static_cast<float>(frac.getDenominator());
         float rv = numerator/denominator;
