@@ -21,9 +21,11 @@ namespace ariel{
 
         public:
             //Constructors
+            Fraction();
+
             Fraction(float);
 
-            Fraction(int numerator = 0, int denominator = 1);
+            Fraction(int numerator, int denominator);
 
             //Arithmetic Operators
             Fraction operator+(const Fraction&) const;

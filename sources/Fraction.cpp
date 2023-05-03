@@ -4,6 +4,8 @@ using namespace std;
 
 namespace ariel{
 
+    Fraction::Fraction():numerator_(0), denominator_(1){}
+
     Fraction::Fraction(float num){
         Fraction other = floatToFraction(num);
         numerator_ = other.getNumerator();
