@@ -1,4 +1,9 @@
 #include "Fraction.hpp"
+#define cast_ll static_cast<long long>
+#define ll long long
+#define max_int std::numeric_limits<int>::max()
+#define min_int std::numeric_limits<int>::min()
+
 
 using namespace std;
 
@@ -58,15 +63,15 @@ namespace ariel{
 
     Fraction Fraction::operator+(const Fraction& other) const{
 
-        long long numerator1 = static_cast<long long>(this->numerator_) * static_cast<long long>(other.denominator_);
-        long long numerator2 = static_cast<long long>(other.numerator_) * static_cast<long long>(this->denominator_);
-        long long rv_numerator = numerator1 + numerator2;
-        long long rv_denominator = static_cast<long long>(this->denominator_ ) * static_cast<long long>(other.denominator_);
+        ll numerator1 = cast_ll(this->numerator_) * cast_ll(other.denominator_);
+        ll numerator2 = cast_ll(other.numerator_) * cast_ll(this->denominator_);
+        ll rv_numerator = numerator1 + numerator2;
+        ll rv_denominator = cast_ll(this->denominator_ ) * cast_ll(other.denominator_);
 
-        if((rv_numerator > std::numeric_limits<int>::max()) ||
-            (rv_denominator > std::numeric_limits<int>::max()) ||
-            (rv_numerator < std::numeric_limits<int>::min()) ||
-            (rv_denominator < std::numeric_limits<int>::min())){
+        if((rv_numerator > max_int) ||
+            (rv_denominator > max_int) ||
+            (rv_numerator < min_int) ||
+            (rv_denominator < min_int)){
             throw overflow_error("Fraction addition overflowed");
         }
 
@@ -88,7 +93,7 @@ namespace ariel{
 
     Fraction Fraction::operator-(const Fraction& other) const{
         if((*this > 0.0) && 
-            (other.getNumerator() == std::numeric_limits<int>::min())){
+            (other.getNumerator() == min_int)){
             throw overflow_error("Fraction subtraction overflowed");
         }
         Fraction negative_other = other * (-1.0);
@@ -109,11 +114,11 @@ namespace ariel{
     }
 
     Fraction Fraction::operator*(const Fraction& other) const{
-        long long rv_numerator = static_cast<long long>(this->numerator_) * static_cast<long long>(other.numerator_);
-        long long rv_denominator = static_cast<long long>(this->denominator_) * static_cast<long long>(other.denominator_);
+        long long rv_numerator = cast_ll(this->numerator_) * cast_ll(other.numerator_);
+        long long rv_denominator = cast_ll(this->denominator_) * cast_ll(other.denominator_);
         
-        if((rv_numerator > std::numeric_limits<int>::max()) || 
-            (rv_denominator > std::numeric_limits<int>::max())){
+        if((rv_numerator > max_int) || 
+            (rv_denominator > max_int)){
                 throw overflow_error("Fraction multiplication overflowed");
             }
         
