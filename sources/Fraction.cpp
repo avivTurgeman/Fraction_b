@@ -114,11 +114,13 @@ namespace ariel{
     }
 
     Fraction Fraction::operator*(const Fraction& other) const{
-        long long rv_numerator = cast_ll(this->numerator_) * cast_ll(other.numerator_);
-        long long rv_denominator = cast_ll(this->denominator_) * cast_ll(other.denominator_);
+        ll rv_numerator = cast_ll(this->numerator_) * cast_ll(other.numerator_);
+        ll rv_denominator = cast_ll(this->denominator_) * cast_ll(other.denominator_);
         
-        if((rv_numerator > max_int) || 
-            (rv_denominator > max_int)){
+        if((rv_numerator > max_int) ||
+            (rv_numerator < min_int) || 
+            (rv_denominator > max_int) ||
+            (rv_denominator < min_int)){
                 throw overflow_error("Fraction multiplication overflowed");
             }
         
